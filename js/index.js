@@ -84,16 +84,11 @@ function load()
         querySnapshot.forEach(function(doc) {
             if(doc.data()["chatname"])
             {
-                //var button = document.createElement("BUTTON");
-                //button.textContent = doc.data()["chatname"];
-                //button.onclick = loadChat;
-                //document.body.appendChild(button);
-
-                var node = document.createElement("LI");                 // Create a <li> node
+                var node = document.createElement("LI");
                 var textnode = document.createTextNode(doc.data()["chatname"]);
                 node.className = "mdl-menu__item";
-                node.onclick = loadChat;        // Create a text node
-                node.appendChild(textnode);                              // Append the text to <li>
+                node.onclick = loadChat;
+                node.appendChild(textnode);
                 chatSelector.appendChild(node);
                 console.log(doc.data()["chatname"]);
             }
@@ -172,19 +167,12 @@ function login()
 
         console.log("Logged in!");
         
-        //console.log(user);
-        //console.log(token);
-        // ...
     }).catch(function(error) {
-        // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
-        // The email of the user's account used.
         var email = error.email;
-        // The firebase.auth.AuthCredential type that was used.
         var credential = error.credential;
-        // ...
-        console.log("Error loggin in: " + errorMessage);
+        console.log("Error logging in: " + errorMessage);
     });
 }
 
@@ -231,7 +219,6 @@ function loadChat()
 
                 if(change.doc.data()["userid"])
                 {
-                    //tempImage.src = storageRef.child('profile-images/' + change.doc.data()["userid"] + '.jpg').getDownloadURL();
                     storageRef.child('profile-images/' + change.doc.data()["userid"]).getDownloadURL().then(function(url)                             {
                         tempImage.src = url;
                         
@@ -293,10 +280,10 @@ function loadChat()
                 document.getElementById("chatlogs").appendChild(tempDiv);
             }
             if (change.type === "modified") {
-                console.log("Modified city: ", change.doc.data());
+                console.log("Modified message: ", change.doc.data());
             }
             if (change.type === "removed") {
-                console.log("Removed city: ", change.doc.data());
+                console.log("Removed message: ", change.doc.data());
             }
         });
 
@@ -306,6 +293,7 @@ function loadChat()
     });
 }
 
+//Pressing enter will send the message
 document.getElementById("message")
     .addEventListener("keyup", function(event) {
     event.preventDefault();
@@ -329,23 +317,6 @@ function sendMessage()
 
     document.getElementById("message").value = "";
     console.log(message);
-
-    //var tempDiv = document.createElement('div');
-    //tempDiv.className = 'chat self';
-
-    //var tempPhotoDiv = document.createElement('div');
-    //tempPhotoDiv.className = 'user-photo';
-
-    //var tempText = document.createElement('p');
-    //tempText.className = 'chat-message';
-    //tempText.innerHTML = username + ": " + message;
-
-    //tempDiv.appendChild(tempPhotoDiv);
-    //tempDiv.appendChild(tempText);
-
-    //document.getElementById("chatlogs").appendChild(tempDiv);
-
-    //document.getElementById("chat").innerHTML += username + ": " + message + "<br/>";
 
     var currentChat = document.getElementById("chatname").innerHTML;
 
