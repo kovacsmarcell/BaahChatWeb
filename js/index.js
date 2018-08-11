@@ -129,6 +129,26 @@ function createUsername()
     });
 }
 
+function createChat()
+{
+    var chatName = prompt("Chatname:");
+
+    var docData = {};
+    docData[String(uid)] = true;
+    docData["chatname"] = chatName;
+    docData["chatid"] = chatName;
+
+    console.log(docData);
+
+    db.collection("chats").doc(chatName).set(docData)
+    .then(function() {
+        console.log("Chat " & chatName & " successfully created!");
+    })
+    .catch(function(error) {
+        console.error("Error creating chat: ", error);
+    });
+}
+
 function login()
 {
     firebase.auth().signInWithPopup(auth).then(function(result) {
